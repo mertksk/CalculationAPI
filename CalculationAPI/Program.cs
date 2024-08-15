@@ -2,13 +2,13 @@
  
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Connection of Services
 builder.Services.AddScoped<ExpressionEvaluator>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP request  
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
