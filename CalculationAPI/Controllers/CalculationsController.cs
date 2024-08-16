@@ -29,14 +29,14 @@ namespace CalculationAPI.Controllers
                 var calculation = new Calculation
                 {
                     Expression = expression,
-                    Result = result.ToString() // Convert double to string here
+                    Result = result.ToString() 
                 };
 
-                // Store the calculation in SQLite
+                // storing the calculation in SQLite
                 using (var dbContext = new CalculationDbContext())
                 {
                     dbContext.InsertCalculation(calculation.Expression, calculation.Result);
-                    calculation.Id = dbContext.GetLastInsertId(); // Retrieve the last inserted ID
+                    calculation.Id = dbContext.GetLastInsertId();  
                 }
 
                 return CreatedAtAction(nameof(GetCalculation), new { id = calculation.Id }, calculation);
@@ -100,7 +100,7 @@ namespace CalculationAPI.Controllers
             }
         }
 
-        // To recall previous calculations using IDs inside an expression, e.g., {1}
+        // To call previous calculations using IDs {1}
         private string ReplaceReferences(string expression)
         {
             var matches = Regex.Matches(expression, @"\{(\d+)\}");
