@@ -31,3 +31,9 @@
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/obj/Debug/net7.0/CalculationAPI.pdb
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/obj/Debug/net7.0/CalculationAPI.genruntimeconfig.cache
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/obj/Debug/net7.0/ref/CalculationAPI.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/Microsoft.Data.Sqlite.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/SQLitePCLRaw.core.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.abstractions.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.assert.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.core.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.execution.dotnet.dll

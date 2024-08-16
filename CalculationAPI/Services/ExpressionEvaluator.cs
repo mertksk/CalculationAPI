@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace CalculationAPI.Services
 {
+    /*This class is to calculate mathematichal operations*/ 
     public class ExpressionEvaluator
     {
-        // Method to evaluate an expression
         public double Evaluate(string expression)
         {
-            var tokens = Tokenize(expression);
-            var rpn = ConvertToRPN(tokens); // Convert to Reverse Polish Notation
-            return EvaluateRPN(rpn); // Evaluate the RPN expression
+            var result = Splitter(expression);
+            var rpn = ConvertToRPN(result);  
+            return Evalutaion(rpn); 
         }
 
-        // Tokenizer: split the expression into numbers, operators, and parentheses
-        private List<string> Tokenize(string expression)
+        /*Method simply to extract variables from the initial string */
+        private List<string> Splitter(string expression)
         {
-            var tokens = new List<string>();
+            var result = new List<string>();
             var currentNumber = "";
 
             for (int i = 0; i < expression.Length; i++)
@@ -26,38 +26,39 @@ namespace CalculationAPI.Services
 
                 if (char.IsDigit(c) || c == '.')
                 {
-                    currentNumber += c; // Build the number token
+                    currentNumber += c;  
                 }
                 else
                 {
                     if (currentNumber != "")
                     {
-                        tokens.Add(currentNumber); // Add the number to the token list
+                        result.Add(currentNumber);   
                         currentNumber = "";
                     }
 
                     if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '(' || c == ')')
                     {
-                        tokens.Add(c.ToString()); // Add the operator or parenthesis
+                        result.Add(c.ToString()); 
                     }
                     else if (c == 'l' && expression.Substring(i, 3) == "log")
                     {
-                        tokens.Add("log");
-                        i += 2; // Move the pointer to the end of "log"
+                        result.Add("log");
+                        i += 2; 
                     }
                 }
             }
 
             if (currentNumber != "")
             {
-                tokens.Add(currentNumber); // Add last number if present
+                result.Add(currentNumber); 
             }
 
-            return tokens;
+            return result;
         }
 
-        // Convert infix expression to Reverse Polish Notation (RPN) using Shunting Yard algorithm
-        private List<string> ConvertToRPN(List<string> tokens)
+        // Reverse Polish Notation (RPN) using Shunting Yard algorithm via GeeksForGeeks (Used this source ->https://www.geeksforgeeks.org/java-program-to-implement-shunting-yard-algorithm/ )
+
+        private List<string> ConvertToRPN(List<string> result)
         {
             var outputQueue = new Queue<string>();
             var operatorStack = new Stack<string>();
@@ -71,87 +72,87 @@ namespace CalculationAPI.Services
 
             var rightAssociative = new HashSet<string> { "^" };
 
-            foreach (var token in tokens)
+            foreach (var i in result)
             {
-                if (double.TryParse(token, out _))
+                if (double.TryParse(i, out _))
                 {
-                    outputQueue.Enqueue(token); // Numbers go directly to the output
+                    outputQueue.Enqueue(i); // Numbers go directly to the output
                 }
-                else if (token == "(")
+                else if (i == "(")
                 {
-                    operatorStack.Push(token); // Left parentheses go on the stack
+                    operatorStack.Push(i); // We stack left phranthsesis 
                 }
-                else if (token == ")")
+                else if (i == ")")
                 {
                     while (operatorStack.Peek() != "(")
                     {
-                        outputQueue.Enqueue(operatorStack.Pop()); // Pop operators until left parenthesis
+                        outputQueue.Enqueue(operatorStack.Pop()); // It pops operators until reaching to the left phranthesis
                     }
-                    operatorStack.Pop(); // Pop the left parenthesis
+                    operatorStack.Pop(); // Pops the left phranthesis
                 }
                 else
                 {
                     while (operatorStack.Any() && precedence.ContainsKey(operatorStack.Peek()) &&
-                           (precedence[operatorStack.Peek()] > precedence[token] ||
-                           (precedence[operatorStack.Peek()] == precedence[token] && !rightAssociative.Contains(token))) &&
+                           (precedence[operatorStack.Peek()] > precedence[i] ||
+                           (precedence[operatorStack.Peek()] == precedence[i] && !rightAssociative.Contains(i))) &&
                            operatorStack.Peek() != "(")
                     {
-                        outputQueue.Enqueue(operatorStack.Pop()); // Pop operators with higher or equal precedence
+                        outputQueue.Enqueue(operatorStack.Pop()); // It pops the operators with higher or equal  
                     }
-                    operatorStack.Push(token); // Push the current operator
+                    operatorStack.Push(i); // It pushes the remaining 
                 }
             }
 
             while (operatorStack.Any())
             {
-                outputQueue.Enqueue(operatorStack.Pop()); // Pop remaining operators
+                outputQueue.Enqueue(operatorStack.Pop()); // It pops the remaining operators
             }
 
             return outputQueue.ToList();
         }
 
-        // Evaluate the RPN expression
-        private double EvaluateRPN(List<string> tokens)
+        // Calculation of Mathematichal Expressions
+        private double Evalutaion(List<string> result)
         {
             var stack = new Stack<double>();
 
-            foreach (var token in tokens)
+            foreach (var i in result)
             {
-                if (double.TryParse(token, out double num))
+                if (double.TryParse(i, out double num))
                 {
                     stack.Push(num);
                 }
-                else if (token == "+")
+                else if (i == "+")
                 {
                     var b = stack.Pop();
                     var a = stack.Pop();
                     stack.Push(a + b);
                 }
-                else if (token == "-")
+                else if (i == "-")
                 {
                     var b = stack.Pop();
                     var a = stack.Pop();
                     stack.Push(a - b);
                 }
-                else if (token == "*")
+                else if (i == "*")
                 {
                     var b = stack.Pop();
                     var a = stack.Pop();
                     stack.Push(a * b);
                 }
-                else if (token == "/")
+                else if (i == "/")
                 {
                     var b = stack.Pop();
                     var a = stack.Pop();
                     stack.Push(a / b);
                 }
-                else if (token == "^")
+                else if (i == "^")
                 {
                     var b = stack.Pop();
                     var a = stack.Pop();
                     stack.Push(Math.Pow(a, b));
                 }
-                else if (token == "log")
+                else if (i == "log")
                 {
                     var baseNum = stack.Pop();
                     var value = stack.Pop();

@@ -1,63 +1,36 @@
-﻿using CalculationAPI.Controllers;
-using CalculationAPI.Models;
+﻿using Xunit;
+using CalculationAPI.Controllers;
+using CalculationAPI.Database;
 using CalculationAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using Xunit;
-using CalculationAPI.Controllers;
-using CalculationAPI.Models;
-using CalculationAPI.Services;
-using System.Diagnostics.Metrics;
 
-namespace YourNamespace.Tests
+public class ControllerTest
 {
-    public class ControllerTest
-
-        private readonly Mock<ExpressionEvaluator> tester = new();
-        private readonly CalculationsController _controller;
-
-        public CalculationsControllerTests()
+    [Fact]
+    public void CreateCalculation_Should_SaveToDatabase()
     {
-            _controller = new CalculationsController(tester.Object);
-        }
+        // Arrange
+        var evaluator = new ExpressionEvaluator(); // Assuming your evaluator is already implemented
+        var controller = new CalculationsController(evaluator);
+        string expression = "5 + 3";
 
-         public void DoesItSaveTheCalculation()
+        // Act
+        var result = controller.CreateCalculation(expression) as CreatedAtActionResult;
+
+        // Assert
+        Assert.NotNull(result); // Check that we got a successful response
+        Assert.IsType<Calculation>(result.Value); // Ensure a Calculation object was returned
+        var calculation = result.Value as Calculation;
+        Assert.Equal("5 + 3", calculation.Expression);
+        Assert.Equal("8", calculation.Result); // Assuming the evaluator returns a double and it's converted to string
+
+        // Check if it's saved in the database
+        using (var dbContext = new CalculationDbContext())
         {
-            var expression = "3 + 2";
-        tester.Setup(e => e.Evaluate(expression)).Returns(5);
-
-            var result = _controller.CreateCalculation(expression) as CreatedAtActionResult;
-
-            Assert.NotNull(result);
-            Assert.Equal(201, result.StatusCode);
+            var savedCalculation = dbContext.GetCalculationById(calculation.Id);
+            Assert.NotNull(savedCalculation);
+            Assert.Equal("5 + 3", savedCalculation.Expression);
+            Assert.Equal("8", savedCalculation.Result);
         }
-
-        
-         public void DeletedContentCheck()
-        {
-            var id = 1;
-
-            var result = _controller.DeleteCalculation(id) as NoContentResult;
-
-            Assert.NotNull(result);
-            Assert.Equal(204, result.StatusCode);
-        }
-
-        public void GetCalculationWorks()
-        {
-            var id = 1;
-            var calculation = new Calculation { Id = id, Expression = "3 + 2", Result = 5 };
-
-            // Simulate finding the calculation
-            var testDatabase = new Mock<IList<Calculation>>();
-            testDatabase.Setup(db => db.Find(id)).Returns(calculation);
-
-            var result = _controller.GetCalculation(id) as OkObjectResult;
-
-            Assert.NotNull(result);
-            Assert.Equal(200, result.StatusCode);
-            Assert.Equal(calculation, result.Value);
-        }
+    }
 }
-}
-

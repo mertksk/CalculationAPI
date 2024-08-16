@@ -1,18 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CalculationAPI.Models;
+using CalculationAPI.Database;
 using CalculationAPI.Services;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace YourNamespace.Controllers
+namespace CalculationAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class CalculationsController : ControllerBase
     {
-        private static readonly Dictionary<int, Calculation> _calculations = new();
-        private static int _nextId = 1;
         private readonly ExpressionEvaluator _expressionEvaluator;
 
         public CalculationsController(ExpressionEvaluator expressionEvaluator)
@@ -20,18 +16,28 @@ namespace YourNamespace.Controllers
             _expressionEvaluator = expressionEvaluator;
         }
 
-        // POST /calculations
+        // POST /api/calculations
         [HttpPost]
         public IActionResult CreateCalculation([FromBody] string expression)
         {
             try
             {
-                // Replace references in the expression like {1}, {2}
+                // Replace references to previous calculations
                 expression = ReplaceReferences(expression);
 
                 var result = _expressionEvaluator.Evaluate(expression);
-                var calculation = new Calculation { Id = _nextId++, Expression = expression, Result = result };
-                _calculations[calculation.Id] = calculation;
+                var calculation = new Calculation
+                {
+                    Expression = expression,
+                    Result = result.ToString() // Convert double to string here
+                };
+
+                // Store the calculation in SQLite
+                using (var dbContext = new CalculationDbContext())
+                {
+                    dbContext.InsertCalculation(calculation.Expression, calculation.Result);
+                    calculation.Id = dbContext.GetLastInsertId(); // Retrieve the last inserted ID
+                }
 
                 return CreatedAtAction(nameof(GetCalculation), new { id = calculation.Id }, calculation);
             }
@@ -41,61 +47,77 @@ namespace YourNamespace.Controllers
             }
         }
 
-        // GET /calculations/{id}
+        // GET /api/calculations/{id}
         [HttpGet("{id}")]
         public IActionResult GetCalculation(int id)
         {
-            if (_calculations.TryGetValue(id, out var calculation))
+            using (var dbContext = new CalculationDbContext())
             {
+                var calculation = dbContext.GetCalculationById(id);
+                if (calculation == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(calculation);
             }
-
-            return NotFound();
         }
 
-        // PUT /calculations/{id}
+        // PUT /api/calculations/{id}
         [HttpPut("{id}")]
         public IActionResult UpdateCalculation(int id, [FromBody] string expression)
         {
-            if (_calculations.TryGetValue(id, out var calculation))
+            using (var dbContext = new CalculationDbContext())
             {
+                var calculation = dbContext.GetCalculationById(id);
+                if (calculation == null)
+                {
+                    return NotFound();
+                }
+
                 expression = ReplaceReferences(expression);
                 calculation.Expression = expression;
-                calculation.Result = _expressionEvaluator.Evaluate(expression);
-                _calculations[id] = calculation;
+                calculation.Result = _expressionEvaluator.Evaluate(expression).ToString(); // Convert double to string here
 
+                dbContext.UpdateCalculation(calculation.Id, calculation.Expression, calculation.Result);
                 return Ok(calculation);
             }
-
-            return NotFound();
         }
 
-        // DELETE /calculations/{id}
+        // DELETE /api/calculations/{id}
         [HttpDelete("{id}")]
         public IActionResult DeleteCalculation(int id)
         {
-            if (_calculations.Remove(id))
+            using (var dbContext = new CalculationDbContext())
             {
-                return NoContent();
-            }
+                var deleted = dbContext.DeleteCalculation(id);
+                if (deleted)
+                {
+                    return NoContent();
+                }
 
-            return NotFound();
+                return NotFound();
+            }
         }
 
-        // Method to replace references in the expression like {1}, {2}
+        // To recall previous calculations using IDs inside an expression, e.g., {1}
         private string ReplaceReferences(string expression)
         {
             var matches = Regex.Matches(expression, @"\{(\d+)\}");
-            foreach (Match match in matches)
+            using (var dbContext = new CalculationDbContext())
             {
-                int id = int.Parse(match.Groups[1].Value);
-                if (_calculations.TryGetValue(id, out var referencedCalculation))
+                foreach (Match match in matches)
                 {
-                    expression = expression.Replace(match.Value, referencedCalculation.Result.ToString());
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Referenced expression with ID {id} not found.");
+                    int id = int.Parse(match.Groups[1].Value);
+                    var referencedCalculation = dbContext.GetCalculationById(id);
+                    if (referencedCalculation != null)
+                    {
+                        expression = expression.Replace(match.Value, referencedCalculation.Result);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Referenced expression with ID {id} not found.");
+                    }
                 }
             }
 
