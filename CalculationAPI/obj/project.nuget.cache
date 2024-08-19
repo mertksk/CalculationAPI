@@ -1,15 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "CWeMcvV3lnP4habaKuNEFJNZ2+/bW+iTxV4fGlHpdt2tOjjWY1Jj4s+xU83jQPgAEdscfvXjRjr3T9HPBgJ/gA==",
+  "dgSpecHash": "uA2L4qDVx/ajVSRl9aVLCqOiUncMuN+2g6zCAEri+fgEreX6lvbJxGDHsxdNvNCd42/xYeOA8Z4sF8vylUvOmQ==",
   "success": true,
   "projectFilePath": "/Users/mertk/Projects/CalculationAPI/CalculationAPI/CalculationAPI.csproj",
   "expectedPackageFiles": [
     "/Users/mertk/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
+    "/Users/mertk/.nuget/packages/ilogger.moq/1.1.10/ilogger.moq.1.1.10.nupkg.sha512",
     "/Users/mertk/.nuget/packages/microsoft.aspnetcore.openapi/7.0.20/microsoft.aspnetcore.openapi.7.0.20.nupkg.sha512",
     "/Users/mertk/.nuget/packages/microsoft.data.sqlite.core/8.0.8/microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
     "/Users/mertk/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/mertk/.nuget/packages/microsoft.extensions.logging.abstractions/2.0.0/microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
     "/Users/mertk/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/mertk/.nuget/packages/moq/4.20.70/moq.4.20.70.nupkg.sha512",
+    "/Users/mertk/.nuget/packages/ndbunit.core/1.6.8/ndbunit.core.1.6.8.nupkg.sha512",
+    "/Users/mertk/.nuget/packages/ndbunit.sqllite/1.6.8/ndbunit.sqllite.1.6.8.nupkg.sha512",
     "/Users/mertk/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
     "/Users/mertk/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "/Users/mertk/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
@@ -25,5 +29,26 @@
     "/Users/mertk/.nuget/packages/xunit.extensibility.core/2.9.0/xunit.extensibility.core.2.9.0.nupkg.sha512",
     "/Users/mertk/.nuget/packages/xunit.extensibility.execution/2.9.0/xunit.extensibility.execution.2.9.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NDbUnit.Core 1.6.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NDbUnit.Core",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NDbUnit.SqlLite 1.6.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NDbUnit.SqlLite",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

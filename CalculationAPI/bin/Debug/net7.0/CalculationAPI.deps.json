@@ -8,13 +8,39 @@
     ".NETCoreApp,Version=v7.0": {
       "CalculationAPI/1.0.0": {
         "dependencies": {
+          "ILogger.Moq": "1.1.10",
           "Microsoft.AspNetCore.OpenApi": "7.0.20",
           "Microsoft.Data.Sqlite.Core": "8.0.8",
+          "Moq": "4.20.70",
+          "NDbUnit.SqlLite": "1.6.8",
           "Swashbuckle.AspNetCore": "6.5.0",
           "xunit": "2.9.0"
         },
         "runtime": {
           "CalculationAPI.dll": {}
+        }
+      },
+      "Castle.Core/5.1.1": {
+        "dependencies": {
+          "System.Diagnostics.EventLog": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Castle.Core.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.1.1.0"
+          }
+        }
+      },
+      "ILogger.Moq/1.1.10": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
+          "Moq": "4.20.70"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Moq.ILogger.dll": {
+            "assemblyVersion": "1.1.10.0",
+            "fileVersion": "1.1.10.0"
+          }
         }
       },
       "Microsoft.AspNetCore.OpenApi/7.0.20": {
@@ -40,11 +66,42 @@
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
+      "Microsoft.Extensions.Logging.Abstractions/2.0.0": {},
       "Microsoft.OpenApi/1.4.3": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.4.3.0",
             "fileVersion": "1.4.3.0"
+          }
+        }
+      },
+      "Moq/4.20.70": {
+        "dependencies": {
+          "Castle.Core": "5.1.1"
+        },
+        "runtime": {
+          "lib/net6.0/Moq.dll": {
+            "assemblyVersion": "4.20.70.0",
+            "fileVersion": "4.20.70.0"
+          }
+        }
+      },
+      "NDbUnit.Core/1.6.8": {
+        "runtime": {
+          "lib/Net35/NDbUnit.Core.dll": {
+            "assemblyVersion": "1.6.8.36615",
+            "fileVersion": "1.6.8.0"
+          }
+        }
+      },
+      "NDbUnit.SqlLite/1.6.8": {
+        "dependencies": {
+          "NDbUnit.Core": "1.6.8"
+        },
+        "runtime": {
+          "lib/Net35/NDbUnit.SqlLite.dll": {
+            "assemblyVersion": "1.6.8.36615",
+            "fileVersion": "1.6.8.0"
           }
         }
       },
@@ -97,6 +154,7 @@
           }
         }
       },
+      "System.Diagnostics.EventLog/6.0.0": {},
       "System.Memory/4.5.3": {},
       "xunit/2.9.0": {
         "dependencies": {
@@ -158,6 +216,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Castle.Core/5.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
+      "path": "castle.core/5.1.1",
+      "hashPath": "castle.core.5.1.1.nupkg.sha512"
+    },
+    "ILogger.Moq/1.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rZ7LO3pbhW1gV5cwIK64nHRwvEk9oJdzfd7UahzE7Er2LtlUZJe3XeMakZRagpVaCo6wCHD9ovSMWkFsQ18SCg==",
+      "path": "ilogger.moq/1.1.10",
+      "hashPath": "ilogger.moq.1.1.10.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.OpenApi/7.0.20": {
       "type": "package",
       "serviceable": true,
@@ -179,12 +251,40 @@
       "path": "microsoft.extensions.apidescription.server/6.0.5",
       "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
     },
+    "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6ZCllUYGFukkymSTx3Yr0G/ajRxoNJp7/FqSxSB4fGISST54ifBhgu4Nc0ItGi3i6DqwuNd8SUyObmiC++AO2Q==",
+      "path": "microsoft.extensions.logging.abstractions/2.0.0",
+      "hashPath": "microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512"
+    },
     "Microsoft.OpenApi/1.4.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-rURwggB+QZYcSVbDr7HSdhw/FELvMlriW10OeOzjPT7pstefMo7IThhtNtDudxbXhW+lj0NfX72Ka5EDsG8x6w==",
       "path": "microsoft.openapi/1.4.3",
       "hashPath": "microsoft.openapi.1.4.3.nupkg.sha512"
+    },
+    "Moq/4.20.70": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4rNnAwdpXJBuxqrOCzCyICXHSImOTRktCgCWXWykuF1qwoIsVvEnR7PjbMk/eLOxWvhmj5Kwt+kDV3RGUYcNwg==",
+      "path": "moq/4.20.70",
+      "hashPath": "moq.4.20.70.nupkg.sha512"
+    },
+    "NDbUnit.Core/1.6.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uMlzDWV1S4duukcops4ehpv4V/gdK4jV4DCYzdUjMyZVt+3tLf48Vvmutsan6tEhXaZlf5zkXuCP+Fmvad2YMA==",
+      "path": "ndbunit.core/1.6.8",
+      "hashPath": "ndbunit.core.1.6.8.nupkg.sha512"
+    },
+    "NDbUnit.SqlLite/1.6.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/Grfv8skO/0j7fdxtgzwkDZBncZfmjeAWBJHLiZeDJnryoiX68d4T8UAX2XQYkhfXT/lJUuu1G9qyhW+4q7dgw==",
+      "path": "ndbunit.sqllite/1.6.8",
+      "hashPath": "ndbunit.sqllite.1.6.8.nupkg.sha512"
     },
     "SQLitePCLRaw.core/2.1.6": {
       "type": "package",
@@ -220,6 +320,13 @@
       "sha512": "sha512-OvbvxX+wL8skxTBttcBsVxdh73Fag4xwqEU2edh4JMn7Ws/xJHnY/JB1e9RoCb6XpDxUF3hD9A0Z1lEUx40Pfw==",
       "path": "swashbuckle.aspnetcore.swaggerui/6.5.0",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+    },
+    "System.Diagnostics.EventLog/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lcyUiXTsETK2ALsZrX+nWuHSIQeazhqPphLfaRxzdGaG93+0kELqpgEHtwWOlQe7+jSFnKwaCAgL4kjeZCQJnw==",
+      "path": "system.diagnostics.eventlog/6.0.0",
+      "hashPath": "system.diagnostics.eventlog.6.0.0.nupkg.sha512"
     },
     "System.Memory/4.5.3": {
       "type": "package",

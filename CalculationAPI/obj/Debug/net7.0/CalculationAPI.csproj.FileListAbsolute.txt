@@ -37,3 +37,8 @@
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.assert.dll
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.core.dll
 /Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/xunit.execution.dotnet.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/Castle.Core.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/Moq.ILogger.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/Moq.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/NDbUnit.Core.dll
+/Users/mertk/Projects/CalculationAPI/CalculationAPI/bin/Debug/net7.0/NDbUnit.SqlLite.dll

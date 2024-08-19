@@ -18,6 +18,23 @@
           }
         }
       },
+      "ILogger.Moq/1.1.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
+          "Moq": "4.13.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Moq.ILogger.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Moq.ILogger.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/7.0.20": {
         "type": "package",
         "dependencies": {
@@ -64,6 +81,19 @@
           "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
+      "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.OpenApi/1.4.3": {
         "type": "package",
         "compile": {
@@ -90,6 +120,31 @@
         "runtime": {
           "lib/net6.0/Moq.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "NDbUnit.Core/1.6.8": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/NDbUnit.Core.dll": {}
+        },
+        "runtime": {
+          "lib/Net35/NDbUnit.Core.dll": {}
+        }
+      },
+      "NDbUnit.SqlLite/1.6.8": {
+        "type": "package",
+        "dependencies": {
+          "NDbUnit.Core": "1.6.8"
+        },
+        "compile": {
+          "lib/Net35/NDbUnit.SqlLite.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NDbUnit.SqlLite.dll": {
+            "related": ".pdb"
           }
         }
       },
@@ -312,6 +367,23 @@
         "lib/netstandard2.1/Castle.Core.dll",
         "lib/netstandard2.1/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "ILogger.Moq/1.1.10": {
+      "sha512": "rZ7LO3pbhW1gV5cwIK64nHRwvEk9oJdzfd7UahzE7Er2LtlUZJe3XeMakZRagpVaCo6wCHD9ovSMWkFsQ18SCg==",
+      "type": "package",
+      "path": "ilogger.moq/1.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ilogger.moq.1.1.10.nupkg.sha512",
+        "ilogger.moq.nuspec",
+        "lib/net461/Moq.ILogger.dll",
+        "lib/net461/Moq.ILogger.xml",
+        "lib/netstandard2.0/Moq.ILogger.dll",
+        "lib/netstandard2.0/Moq.ILogger.xml",
+        "lib/netstandard2.1/Moq.ILogger.dll",
+        "lib/netstandard2.1/Moq.ILogger.xml"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/7.0.20": {
@@ -579,6 +651,19 @@
         "tools/netcoreapp2.1/System.Diagnostics.DiagnosticSource.dll"
       ]
     },
+    "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
+      "sha512": "6ZCllUYGFukkymSTx3Yr0G/ajRxoNJp7/FqSxSB4fGISST54ifBhgu4Nc0ItGi3i6DqwuNd8SUyObmiC++AO2Q==",
+      "type": "package",
+      "path": "microsoft.extensions.logging.abstractions/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.abstractions.nuspec"
+      ]
+    },
     "Microsoft.OpenApi/1.4.3": {
       "sha512": "rURwggB+QZYcSVbDr7HSdhw/FELvMlriW10OeOzjPT7pstefMo7IThhtNtDudxbXhW+lj0NfX72Ka5EDsG8x6w==",
       "type": "package",
@@ -612,6 +697,31 @@
         "moq.4.20.70.nupkg.sha512",
         "moq.nuspec",
         "readme.md"
+      ]
+    },
+    "NDbUnit.Core/1.6.8": {
+      "sha512": "uMlzDWV1S4duukcops4ehpv4V/gdK4jV4DCYzdUjMyZVt+3tLf48Vvmutsan6tEhXaZlf5zkXuCP+Fmvad2YMA==",
+      "type": "package",
+      "path": "ndbunit.core/1.6.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Net35/NDbUnit.Core.dll",
+        "ndbunit.core.1.6.8.nupkg.sha512",
+        "ndbunit.core.nuspec"
+      ]
+    },
+    "NDbUnit.SqlLite/1.6.8": {
+      "sha512": "/Grfv8skO/0j7fdxtgzwkDZBncZfmjeAWBJHLiZeDJnryoiX68d4T8UAX2XQYkhfXT/lJUuu1G9qyhW+4q7dgw==",
+      "type": "package",
+      "path": "ndbunit.sqllite/1.6.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Net35/NDbUnit.SqlLite.dll",
+        "lib/Net35/NDbUnit.SqlLite.pdb",
+        "ndbunit.sqllite.1.6.8.nupkg.sha512",
+        "ndbunit.sqllite.nuspec"
       ]
     },
     "SQLitePCLRaw.core/2.1.6": {
@@ -890,9 +1000,11 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "ILogger.Moq >= 1.1.10",
       "Microsoft.AspNetCore.OpenApi >= 7.0.20",
       "Microsoft.Data.Sqlite.Core >= 8.0.8",
       "Moq >= 4.20.70",
+      "NDbUnit.SqlLite >= 1.6.8",
       "Swashbuckle.AspNetCore >= 6.5.0",
       "xunit >= 2.9.0"
     ]
@@ -935,6 +1047,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "ILogger.Moq": {
+            "target": "Package",
+            "version": "[1.1.10, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[7.0.20, )"
@@ -946,6 +1062,10 @@
           "Moq": {
             "target": "Package",
             "version": "[4.20.70, )"
+          },
+          "NDbUnit.SqlLite": {
+            "target": "Package",
+            "version": "[1.6.8, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -978,5 +1098,27 @@
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NDbUnit.Core 1.6.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NDbUnit.Core",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NDbUnit.SqlLite 1.6.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NDbUnit.SqlLite",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

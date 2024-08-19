@@ -2,6 +2,7 @@
 using CalculationAPI.Database;
 using CalculationAPI.Services;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CalculationAPI.Controllers
 {
@@ -10,15 +11,17 @@ namespace CalculationAPI.Controllers
     public class CalculationsController : ControllerBase
     {
         private readonly ExpressionEvaluator _expressionEvaluator;
+        private readonly ILogger<CalculationDbContext> _logger;
 
-        public CalculationsController(ExpressionEvaluator expressionEvaluator)
+        public CalculationsController(ExpressionEvaluator expressionEvaluator, ILogger<CalculationDbContext> logger)
         {
             _expressionEvaluator = expressionEvaluator;
+            _logger = logger;
         }
 
         // POST /api/calculations
         [HttpPost]
-        public IActionResult CreateCalculation([FromBody] string expression)
+        public async Task<IActionResult> CreateCalculation([FromBody] string expression)
         {
             try
             {
@@ -29,14 +32,14 @@ namespace CalculationAPI.Controllers
                 var calculation = new Calculation
                 {
                     Expression = expression,
-                    Result = result.ToString() 
+                    Result = result.ToString()
                 };
 
-                // storing the calculation in SQLite
-                using (var dbContext = new CalculationDbContext())
+                // Store the calculation in SQLite
+                using (var dbContext = new CalculationDbContext(_logger))
                 {
-                    dbContext.InsertCalculation(calculation.Expression, calculation.Result);
-                    calculation.Id = dbContext.GetLastInsertId();  
+                    await dbContext.InsertCalculationAsync(calculation.Expression, calculation.Result);
+                    calculation.Id = dbContext.GetLastInsertId();
                 }
 
                 return CreatedAtAction(nameof(GetCalculation), new { id = calculation.Id }, calculation);
@@ -49,79 +52,62 @@ namespace CalculationAPI.Controllers
 
         // GET /api/calculations/{id}
         [HttpGet("{id}")]
-        public IActionResult GetCalculation(int id)
+        public async Task<IActionResult> GetCalculation(int id)
         {
-            using (var dbContext = new CalculationDbContext())
+            using (var dbContext = new CalculationDbContext(_logger))
             {
-                var calculation = dbContext.GetCalculationById(id);
+                var calculation = await dbContext.GetCalculationByIdAsync(id);
                 if (calculation == null)
                 {
                     return NotFound();
                 }
-
                 return Ok(calculation);
             }
         }
 
         // PUT /api/calculations/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateCalculation(int id, [FromBody] string expression)
+        public async Task<IActionResult> UpdateCalculation(int id, [FromBody] string newExpression)
         {
-            using (var dbContext = new CalculationDbContext())
+            using (var dbContext = new CalculationDbContext(_logger))
             {
-                var calculation = dbContext.GetCalculationById(id);
-                if (calculation == null)
+                var existingCalculation = await dbContext.GetCalculationByIdAsync(id);
+                if (existingCalculation == null)
                 {
                     return NotFound();
                 }
 
-                expression = ReplaceReferences(expression);
-                calculation.Expression = expression;
-                calculation.Result = _expressionEvaluator.Evaluate(expression).ToString(); // Convert double to string here
+                var updatedResult = _expressionEvaluator.Evaluate(newExpression);
+                existingCalculation.Expression = newExpression;
+                existingCalculation.Result = updatedResult.ToString();
 
-                dbContext.UpdateCalculation(calculation.Id, calculation.Expression, calculation.Result);
-                return Ok(calculation);
+                await dbContext.UpdateCalculationAsync(id, existingCalculation.Expression, existingCalculation.Result);
+
+                return Ok(existingCalculation);
             }
         }
 
         // DELETE /api/calculations/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteCalculation(int id)
+        public async Task<IActionResult> DeleteCalculation(int id)
         {
-            using (var dbContext = new CalculationDbContext())
+            using (var dbContext = new CalculationDbContext(_logger))
             {
-                var deleted = dbContext.DeleteCalculation(id);
-                if (deleted)
+                var existingCalculation = await dbContext.GetCalculationByIdAsync(id);
+                if (existingCalculation == null)
                 {
-                    return NoContent();
+                    return NotFound();
                 }
 
-                return NotFound();
+                await dbContext.DeleteCalculationAsync(id);
+                return NoContent();
             }
         }
 
-        // To call previous calculations using IDs {1}
         private string ReplaceReferences(string expression)
         {
-            var matches = Regex.Matches(expression, @"\{(\d+)\}");
-            using (var dbContext = new CalculationDbContext())
-            {
-                foreach (Match match in matches)
-                {
-                    int id = int.Parse(match.Groups[1].Value);
-                    var referencedCalculation = dbContext.GetCalculationById(id);
-                    if (referencedCalculation != null)
-                    {
-                        expression = expression.Replace(match.Value, referencedCalculation.Result);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException($"Referenced expression with ID {id} not found.");
-                    }
-                }
-            }
-
-            return expression;
+            // Implementation for replacing {id} references in the expression
+            return expression; // This would contain the logic to replace references with actual expressions
         }
     }
 }

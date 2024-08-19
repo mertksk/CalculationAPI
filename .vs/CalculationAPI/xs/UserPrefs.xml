@@ -1,4 +1,44 @@
-﻿<Properties StartupConfiguration="{F31736BB-1701-4B49-A710-F360C4040F50}|https">
+﻿<Properties StartupConfiguration="{F31736BB-1701-4B49-A710-F360C4040F50}|http">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="CalculationAPI/Tests/CalculationsControllerTests.cs">
+    <Files>
+      <File FileName="CalculationAPI/Controllers/CalculationsController.cs" Line="114" Column="1" />
+      <File FileName="CalculationAPI/Models/Calculation.cs" Line="1" Column="34" />
+      <File FileName="CalculationAPI/Services/ExpressionEvaluator.cs" Line="62" Column="10" />
+      <File FileName="CalculationAPI/Program.cs" Line="15" Column="1" />
+      <File FileName="CalculationAPI/Properties/launchSettings.json" Line="41" Column="2" />
+      <File FileName="CalculationAPI/appsettings.json" Line="1" Column="1" />
+      <File FileName="CalculationAPI/appsettings.Development.json" Line="10" Column="1" />
+      <File FileName="CalculationAPI/Database/CalculationDbContext.cs" Line="138" Column="1" />
+      <File FileName="CalculationAPI/Tests/ServiceTests.cs" Line="70" Column="5" />
+      <File FileName="CalculationAPI/Tests/CalculationsControllerTests.cs" Line="63" Column="60" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CalculationAPI">
+            <Node name="CalculationAPI">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Database" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Tests">
+                <Node name="CalculationsControllerTests.cs" selected="True" />
+              </Node>
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.CalculationAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.CalculationAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

@@ -39,6 +39,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "ILogger.Moq": {
+              "target": "Package",
+              "version": "[1.1.10, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.20, )"
@@ -50,6 +54,10 @@
             "Moq": {
               "target": "Package",
               "version": "[4.20.70, )"
+            },
+            "NDbUnit.SqlLite": {
+              "target": "Package",
+              "version": "[1.6.8, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
